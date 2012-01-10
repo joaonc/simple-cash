@@ -1,7 +1,7 @@
-package main.java.com.simplecash.object;
+package com.simplecash.object;
 
 /**
- *
+ * Account POJO
  */
 public class Account {
 }
