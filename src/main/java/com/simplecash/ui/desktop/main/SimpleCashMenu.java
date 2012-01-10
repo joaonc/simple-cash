@@ -18,8 +18,10 @@ public class SimpleCashMenu extends JMenuBar {
     private SimpleCashMenu() {
         //JMenu menu = new JMenu(simpleCashDialogResourceBundle.getString("Menu1"));
         JMenu menu = new JMenu("Menu1");
-        JMenuItem item = new JMenuItem("ITEM");
-        menu.add(item);
+        JMenuItem item1 = new JMenuItem("ITEM 1");
+        menu.add(item1);
+        JMenuItem item2 = new JMenuItem("ITEM 2");
+        menu.add(item2);
 
         add(menu);
     }
