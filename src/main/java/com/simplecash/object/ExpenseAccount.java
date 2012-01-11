@@ -3,8 +3,8 @@ package com.simplecash.object;
 import javax.persistence.Entity;
 
 /**
- * Account POJO
+ * ExpenseAccount POJO
  */
 @Entity
-public class Account {
+public class ExpenseAccount {
 }
