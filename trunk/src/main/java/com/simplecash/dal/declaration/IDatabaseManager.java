@@ -4,6 +4,7 @@ package com.simplecash.dal.declaration;
  *
  */
 public interface IDatabaseManager {
-    public void CreateDatabase();
-    public void UpdateDatabaseSchema();
+    public void createDatabaseSchema();
+    public void updateDatabaseSchema();
+    public void populateWithTestData();
 }

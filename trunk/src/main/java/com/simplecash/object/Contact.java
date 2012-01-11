@@ -9,15 +9,17 @@ import java.util.Date;
 @Entity
 public class Contact {
 
+    @Id
+    @GeneratedValue
     private long id;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     
     public Contact() {
         createDate = new Date();
     }
 
-    @Id
-    @GeneratedValue
     public long getId() {
         return id;
     }
@@ -26,7 +28,6 @@ public class Contact {
         this.id = id;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
     public Date getCreateDate() {
         return createDate;
     }
