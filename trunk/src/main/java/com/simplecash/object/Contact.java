@@ -17,7 +17,7 @@ public class Contact {
     }
 
     @Id
-    @GeneratedValue(generator="increment")
+    @GeneratedValue
     public long getId() {
         return id;
     }
