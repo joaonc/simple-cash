@@ -1,6 +1,6 @@
 package com.simplecash.ui.desktop.main;
 
-import com.simplecash.dal.implementation.DatabaseManagerDAO;
+import com.simplecash.dal.DatabaseManagerDAO;
 
 import org.slf4j.*;
 
