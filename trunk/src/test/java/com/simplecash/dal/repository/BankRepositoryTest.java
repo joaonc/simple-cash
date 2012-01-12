@@ -28,7 +28,7 @@ public class BankRepositoryTest extends AbstractTransactionalJUnit4SpringContext
     }
 
     @Test
-    public void getByIdTest() {
+    public void findAllTest() {
         Iterable<Bank> banks = bankRepository.findAll();
         assertNotNull(banks);
     }

@@ -1,6 +1,5 @@
 package com.simplecash.ui.desktop.main;
 
-import com.simplecash.dal.declaration.IDatabaseManager;
 import com.simplecash.dal.implementation.DatabaseManagerDAO;
 
 import org.slf4j.*;
@@ -77,13 +76,13 @@ public class SimpleCashDialog extends JDialog implements ActionListener {
         } else if (SimpleCashDialogAction.menu_file_login_logout.equals(event.getActionCommand())) {
             // TODO: log in/out
         } else if (SimpleCashDialogAction.menu_admin_createdb.equals(event.getActionCommand())) {
-            IDatabaseManager dbMgr = new DatabaseManagerDAO();
+            DatabaseManagerDAO dbMgr = new DatabaseManagerDAO();
             dbMgr.createDatabaseSchema();
         } else if (SimpleCashDialogAction.menu_admin_updatedb.equals(event.getActionCommand())) {
-            IDatabaseManager dbMgr = new DatabaseManagerDAO();
+            DatabaseManagerDAO dbMgr = new DatabaseManagerDAO();
             dbMgr.updateDatabaseSchema();
         } else if (SimpleCashDialogAction.menu_admin_populatedb.equals(event.getActionCommand())) {
-            IDatabaseManager dbMgr = new DatabaseManagerDAO();
+            DatabaseManagerDAO dbMgr = new DatabaseManagerDAO();
             dbMgr.populateWithTestData();
         }
     }
