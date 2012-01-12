@@ -1,13 +1,17 @@
 package com.simplecash.object;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  *
  */
 @Entity
 public class BankAccount {
+    @Id
+    @GeneratedValue
     private long id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="bank_fk")
     private Bank bank;
     private String number;
     private String agency;

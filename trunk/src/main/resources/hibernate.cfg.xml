@@ -15,5 +15,7 @@
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
         <!-- Mappings -->
         <mapping class="com.simplecash.object.Contact"/>
+        <mapping class="com.simplecash.object.Bank"/>
+        <mapping class="com.simplecash.object.BankAccount"/>
     </session-factory>
 </hibernate-configuration>

@@ -3,15 +3,14 @@ package com.simplecash.object;
 import javax.persistence.*;
 
 /**
- * Bank pojo.
+ * Roles available to users.
  */
 @Entity
-public class Bank {
+public class Role {
     @Id
-    @GeneratedValue
     private long id;
     private String name;
-    private String code;
+    private String description;
 
     public long getId() {
         return id;
@@ -29,11 +28,11 @@ public class Bank {
         this.name = name;
     }
 
-    public String getCode() {
-        return code;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
