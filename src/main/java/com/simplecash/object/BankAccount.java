@@ -7,12 +7,15 @@ import javax.persistence.*;
  */
 @Entity
 public class BankAccount {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="bank_fk")
     private Bank bank;
+
     private String number;
     private String agency;
     private String type;
@@ -20,10 +23,6 @@ public class BankAccount {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Bank getBank() {

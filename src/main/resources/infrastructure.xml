@@ -7,7 +7,8 @@
             http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSourceMySQL" />
+        <property name="persistenceUnitName" value="spring-jpa" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="generateDdl" value="true" />
@@ -15,14 +16,13 @@
                 <property name="database" value="MYSQL" />
             </bean>
         </property>
-        <property name="persistenceUnitName" value="simplecash" />
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
-    <bean id="dataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" destroy-method="close">
+    <bean id="dataSourceMySQL" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/simplecash"/>
         <property name="username" value="root"/>

@@ -10,7 +10,7 @@ import java.util.Date;
 public class Contact {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -22,10 +22,6 @@ public class Contact {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Date getCreateDate() {
