@@ -1,18 +1,21 @@
 package com.simplecash.object;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Application user.
  */
 @Entity
 public class User {
+    @Id
     private long id;
     private String name;
     private String login;
     private String password;
-
-    public User() {}
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="roles_fk")
+    private List<Role> roles;
 
     public long getId() {
         return id;
@@ -44,5 +47,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

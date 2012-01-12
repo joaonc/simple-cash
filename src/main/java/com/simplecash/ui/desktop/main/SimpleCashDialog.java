@@ -2,8 +2,7 @@ package com.simplecash.ui.desktop.main;
 
 import com.simplecash.dal.declaration.IDatabaseManager;
 import com.simplecash.dal.implementation.DatabaseManagerDAO;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+
 import org.slf4j.*;
 
 import javax.swing.*;
@@ -22,10 +21,6 @@ public class SimpleCashDialog extends JDialog implements ActionListener {
         setContentPane(contentPane);
         setModal(true);
         createMenu();
-
-        Configuration hibernateConfig = new Configuration();
-        hibernateConfig.configure();
-        SessionFactory factory = hibernateConfig.buildSessionFactory();
     }
 
     /**
