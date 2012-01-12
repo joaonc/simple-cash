@@ -1,7 +1,5 @@
 package com.simplecash.object;
 
-import com.simplecash.object.constant.TagType;
-
 import javax.persistence.*;
 
 /**
