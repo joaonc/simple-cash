@@ -1,4 +1,4 @@
-package com.simplecash.dal.implementation;
+package com.simplecash.dal;
 
 import com.simplecash.object.*;
 import org.hibernate.cfg.Configuration;
@@ -7,7 +7,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import java.util.Date;
 
 /**
- *
+ * Perform some database related operations.
  */
 public class DatabaseManagerDAO {
 

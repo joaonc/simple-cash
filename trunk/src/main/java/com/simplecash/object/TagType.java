@@ -1,4 +1,4 @@
-package com.simplecash.object.constant;
+package com.simplecash.object;
 
 /**
  * The types of tag available throughout the application.
