@@ -3,10 +3,10 @@ package com.simplecash.object;
 import javax.persistence.*;
 
 /**
- * Supplier pojo.
+ * Customer that can be an individual or a company.
  */
 @Entity
-public class Supplier {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

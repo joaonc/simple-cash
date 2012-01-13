@@ -15,6 +15,9 @@ public class Transaction {
 
     private BigDecimal amount;
     private String description;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="bankaccount_fk")
     private BankAccount bankAccount;
 
     public long getId() {
