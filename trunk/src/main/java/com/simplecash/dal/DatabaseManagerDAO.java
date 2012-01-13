@@ -29,7 +29,6 @@ public class DatabaseManagerDAO {
 
     public void populateWithTestData() {
         Contact contact = new Contact();
-        contact.setCreateDate(new Date());
         //new ContactDAO().save(contact);
     }
 

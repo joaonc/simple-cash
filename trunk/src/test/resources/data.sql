@@ -1,0 +1,1 @@
+insert into bank (id, code, name) values (1, 'test code', 'test name');

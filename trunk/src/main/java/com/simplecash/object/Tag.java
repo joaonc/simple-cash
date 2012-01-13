@@ -7,6 +7,7 @@ import javax.persistence.*;
  * A Supplier can have 0 or more types. Acts similarly to a tag.
  * Ex "Tom's Hardware Shop" can have the type "Motor repair" and ""
  */
+@Entity
 public class Tag {
 
     @Id

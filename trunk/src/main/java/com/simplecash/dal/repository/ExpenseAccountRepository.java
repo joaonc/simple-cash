@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  */
 public interface ExpenseAccountRepository extends JpaRepository<ExpenseAccount, Long> {
+
     public ExpenseAccount findByName(String name);
 }
