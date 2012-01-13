@@ -10,4 +10,5 @@
     <import resource="infrastructure.xml" />
 
     <jpa:repositories base-package="com.simplecash.dal.repository" />
+
 </beans>

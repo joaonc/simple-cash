@@ -19,8 +19,8 @@ import com.jjcommon.*;
  * Unit tests for BankRepository.
  * Note that some of these tests change the database and should never be run against production.
  */
-@Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
+//@Transactional
+//@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:application-context-test.xml")
 public class BankRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 
@@ -51,6 +51,7 @@ public class BankRepositoryTest extends AbstractTransactionalJUnit4SpringContext
         bank = bankRepository.saveAndFlush(bank);
         bankRepository.flush();
         Bank persisted = bankRepository.findOne(bank.getId());
+        bankRepository.count();
 
         //assertNotSame(bank, persisted);
         assertEquals(bank.getName(), persisted.getName());
