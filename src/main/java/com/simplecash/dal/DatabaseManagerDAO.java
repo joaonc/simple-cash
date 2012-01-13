@@ -1,8 +1,10 @@
 package com.simplecash.dal;
 
+import com.simplecash.dal.repository.BankRepository;
 import com.simplecash.object.*;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
@@ -28,8 +30,13 @@ public class DatabaseManagerDAO {
     }
 
     public void populateWithTestData() {
-        Contact contact = new Contact();
-        //new ContactDAO().save(contact);
+
+        Bank bank = new Bank();
+        bank.setName("ContentName");
+        bank.setCode("ContentCode");
+
+        BankRepository bankRepository = RepositoryFactory.getRepository(BankRepository.class);
+        bankRepository.saveAndFlush(bank);
     }
 
 }
