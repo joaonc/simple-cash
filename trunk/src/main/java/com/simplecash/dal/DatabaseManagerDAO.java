@@ -42,8 +42,7 @@ public class DatabaseManagerDAO {
         ContactInfoTypeRepository contactInfoTypeRepository =
                 RepositoryFactory.getRepository(ContactInfoTypeRepository.class);
         for (ContactInfoType.Type type : ContactInfoType.Type.values()) {
-            ContactInfoType contactInfoType = new ContactInfoType();
-            contactInfoType.setType(type);
+            ContactInfoType contactInfoType = new ContactInfoType(type);
             contactInfoTypeRepository.save(contactInfoType);
         }
         
@@ -56,6 +55,7 @@ public class DatabaseManagerDAO {
 
         BankAccount bankAccount = new BankAccount();
         bankAccount.setName("Conta no Itaú");
+        bankAccount.setNumber("1234-01");
         bankAccount.setBank(bank);
 
         BankAccountRepository bankAccountRepository = RepositoryFactory.getRepository(BankAccountRepository.class);

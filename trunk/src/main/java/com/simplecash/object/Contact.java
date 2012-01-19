@@ -1,10 +1,12 @@
 package com.simplecash.object;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Set;
 
 /**
  * Contact information for other entities such as Supplier and Customer.
+ * A contact is composed of zero or more ContactInfo and zero or more Address instances, ie,
+ * one contact can have 1 email and 2 phones, another 3 emails 2 addresses and 1 phone.
  */
 @Entity
 public class Contact {
@@ -13,14 +15,20 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-    private String telephone1;
-    private String telephone2;
-    private String email1;
-    private String email2;
-    private String address;
-    private String postalCode;
-    private String state;
-    private String country;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+            name = "Contact_ContactInfo",
+            joinColumns = { @JoinColumn(name = "id_contact") },
+            inverseJoinColumns = { @JoinColumn(name = "id_contactInfo") })
+    private Set<ContactInfo> contactInfos;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+            name = "Contact_Address",
+            joinColumns = { @JoinColumn(name = "id_contact") },
+            inverseJoinColumns = { @JoinColumn(name = "id_address") })
+    private Set<Address> addresses;
 
     public long getId() {
         return id;
@@ -34,67 +42,19 @@ public class Contact {
         this.name = name;
     }
 
-    public String getTelephone1() {
-        return telephone1;
+    public Set<ContactInfo> getContactInfos() {
+        return contactInfos;
     }
 
-    public void setTelephone1(String telephone1) {
-        this.telephone1 = telephone1;
+    public void setContactInfos(Set<ContactInfo> contactInfos) {
+        this.contactInfos = contactInfos;
     }
 
-    public String getTelephone2() {
-        return telephone2;
+    public Set<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setTelephone2(String telephone2) {
-        this.telephone2 = telephone2;
-    }
-
-    public String getEmail1() {
-        return email1;
-    }
-
-    public void setEmail1(String email1) {
-        this.email1 = email1;
-    }
-
-    public String getEmail2() {
-        return email2;
-    }
-
-    public void setEmail2(String email2) {
-        this.email2 = email2;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 }

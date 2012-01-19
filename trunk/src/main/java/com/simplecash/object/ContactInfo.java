@@ -11,22 +11,35 @@ public class ContactInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Enumerated(EnumType.STRING)
-    private ContactInfoType.Type contactInfoType;
+    private String type;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_contactInfoType")
+    private ContactInfoType contactInfoType;
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    /**
+     * Get the type of contact info (Home, Work, etc.)
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Set the type of contact info (Home, Work, etc.)
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 
     public ContactInfoType.Type getContactInfoType() {
-        return contactInfoType;
+        return contactInfoType.getType();
     }
 
     public void setContactInfoType(ContactInfoType.Type contactInfoType) {
-        this.contactInfoType = contactInfoType;
+        this.contactInfoType = new ContactInfoType(contactInfoType);
     }
 }

@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class ContactInfoType {
 
-    // Following the solution proposed here for enum persistence
+    // Following the solution proposed in the links below for enum persistence
     // http://stackoverflow.com/questions/2751733/map-enum-in-jpa-with-fixed-values
     // http://duydo.com/effective-jpa-persist-an-enumerationeffectively
 
@@ -16,7 +16,8 @@ public class ContactInfoType {
 
         Email(1),
         Telephone(2),
-        Note(3);
+        Url(3),
+        Note(4);
         
         private int id;
         private String description;
@@ -49,15 +50,26 @@ public class ContactInfoType {
 
             return type;
         }
-    };
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(unique = true)
     private int id_type;
+
+    @Column(unique = true)
     private String name;  // So it can be visible in the database
-    private String description;
+
+    private String description;  // So it can be visible in the database
+
+    public ContactInfoType() {
+    }
+
+    public ContactInfoType(Type type) {
+        setType(type);
+    }
 
     public Type getType() {
         return Type.parse(id_type);
