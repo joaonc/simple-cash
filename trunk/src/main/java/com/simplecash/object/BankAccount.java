@@ -13,7 +13,7 @@ public class BankAccount {
     private long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="bank_fk")
+    @JoinColumn(name="id_bank")
     private Bank bank;
 
     private String number;

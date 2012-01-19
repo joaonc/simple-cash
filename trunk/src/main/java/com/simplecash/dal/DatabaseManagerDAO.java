@@ -1,18 +1,22 @@
 package com.simplecash.dal;
 
-import com.simplecash.dal.repository.BankRepository;
+import com.simplecash.dal.repository.*;
 import com.simplecash.object.*;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 /**
  * Perform some database related operations.
  */
 public class DatabaseManagerDAO {
+
+    @Autowired
+    BankRepository bankRepository;
+
+//    RepositoryFactorySupport factory;
 
     public void createDatabaseSchema() {
         // To not use the Configuration object below for SchemaExport, check out
@@ -22,6 +26,7 @@ public class DatabaseManagerDAO {
         configuration.configure();
 
         SchemaExport schemaExport = new SchemaExport(configuration);
+        schemaExport.drop(true, true);
         schemaExport.create(true, true);
     }
 
@@ -29,16 +34,33 @@ public class DatabaseManagerDAO {
 
     }
 
+    @Transactional
     public void populateWithTestData() {
 
-        Bank bank = new Bank();
-        bank.setName("ContentName");
-        bank.setCode("ContentCode");
-
         RepositoryFactory.getEntityManager().getTransaction().begin();
+
+        ContactInfoTypeRepository contactInfoTypeRepository =
+                RepositoryFactory.getRepository(ContactInfoTypeRepository.class);
+        for (ContactInfoType.Type type : ContactInfoType.Type.values()) {
+            ContactInfoType contactInfoType = new ContactInfoType();
+            contactInfoType.setType(type);
+            contactInfoTypeRepository.save(contactInfoType);
+        }
+        
+        Bank bank = new Bank();
+        bank.setName("Itau");
+        bank.setCode("341");
+
         BankRepository bankRepository = RepositoryFactory.getRepository(BankRepository.class);
-        bankRepository.save(bank);
-        bankRepository.flush();
+        bank = bankRepository.save(bank);
+
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setName("Conta no Itaú");
+        bankAccount.setBank(bank);
+
+        BankAccountRepository bankAccountRepository = RepositoryFactory.getRepository(BankAccountRepository.class);
+        bankAccount = bankAccountRepository.save(bankAccount);
+
         RepositoryFactory.getEntityManager().getTransaction().commit();
     }
 }
