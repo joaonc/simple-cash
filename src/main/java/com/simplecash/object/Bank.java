@@ -1,16 +1,23 @@
 package com.simplecash.object;
 
 import javax.persistence.*;
+//import javax.validation.constraints.*;
 
 /**
  * Bank pojo.
  */
 @Entity
 public class Bank {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+//    @NotNull
+    @Column(unique = true)
     private String name;
+
+    @Column(unique = true)
     private String code;
 
     public long getId() {
