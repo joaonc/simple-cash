@@ -15,4 +15,5 @@ public class SimpleCashDialogAction {
     public static final String menu_admin_createdb = "menu_admin_createdb";
     public static final String menu_admin_updatedb = "menu_admin_updatedb";
     public static final String menu_admin_populatedb = "menu_admin_populatedb";
+    public static final String menu_clients_list = "menu_clients_list";
 }

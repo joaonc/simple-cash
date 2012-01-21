@@ -13,7 +13,7 @@ public class Main {
 
         // Instanciate RepositoryFactory, which causes most beans to be instantiated as well
         // Not necessary to do it here, but it will be fail fast if doesn't instanciate properly
-        new RepositoryFactory();
+//        new RepositoryFactory();
 
         // Start the main window
         SimpleCashDialog dialog = new SimpleCashDialog();

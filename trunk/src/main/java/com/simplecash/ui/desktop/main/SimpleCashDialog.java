@@ -2,6 +2,7 @@ package com.simplecash.ui.desktop.main;
 
 import com.simplecash.dal.DatabaseManagerDAO;
 
+import com.simplecash.ui.desktop.*;
 import org.slf4j.*;
 
 import javax.swing.*;
@@ -11,15 +12,20 @@ import java.util.ResourceBundle;
 
 public class SimpleCashDialog extends JDialog implements ActionListener {
     private JPanel contentPane;
+    private JSplitPane splitPane;
 
     final Logger logger = LoggerFactory.getLogger(SimpleCashDialog.class);
     private final ResourceBundle simpleCashDialogResourceBundle =
             PropertyResourceBundle.getBundle(SimpleCashDialog.class.getCanonicalName());
+    private final ResourceBundle generalResourceBundle = GeneralResourceBundle.getInstance();
 
     public SimpleCashDialog() {
         setContentPane(contentPane);
         setModal(true);
         createMenu();
+
+        LeftPanelForm form = new LeftPanelForm();
+        splitPane.setLeftComponent(form.getPanel());
     }
 
     /**
@@ -59,6 +65,16 @@ public class SimpleCashDialog extends JDialog implements ActionListener {
         menu_admin_populatedb.addActionListener(this);
         menu_admin.add(menu_admin_populatedb);
         menuBar.add(menu_admin);
+
+        // Client menu
+        JMenu menu_clients = new JMenu(generalResourceBundle.getString("Clients"));
+        JMenuItem menu_clients_list = new JMenuItem();
+        menuBar.add(menu_clients);
+
+        // Supplier menu
+        JMenu menu_suppliers = new JMenu(generalResourceBundle.getString("Suppliers"));
+        JMenuItem menu_suppliers_list = new JMenuItem();
+        menuBar.add(menu_suppliers);
 
         // Help menu
         menuBar.add(Box.createHorizontalGlue());
