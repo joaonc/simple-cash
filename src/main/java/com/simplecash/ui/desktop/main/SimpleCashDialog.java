@@ -2,15 +2,24 @@ package com.simplecash.ui.desktop.main;
 
 import com.simplecash.dal.DatabaseManagerDAO;
 
+import com.simplecash.ui.desktop.event.LookAndFeelChangeEvent;
 import com.simplecash.ui.desktop.*;
+import com.simplecash.ui.desktop.LookAndFeelOption;
+import com.simplecash.ui.desktop.options.InterfaceOptionsForm;
+import javaEventing.EventManager;
+import javaEventing.interfaces.Event;
+import javaEventing.interfaces.GenericEventListener;
 import org.slf4j.*;
 
 import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.*;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-public class SimpleCashDialog extends JDialog implements ActionListener {
+public class SimpleCashDialog extends JDialog implements ActionListener, TreeSelectionListener {
     private JPanel contentPane;
     private JSplitPane splitPane;
 
@@ -24,8 +33,17 @@ public class SimpleCashDialog extends JDialog implements ActionListener {
         setModal(true);
         createMenu();
 
-        LeftPanelForm form = new LeftPanelForm();
-        splitPane.setLeftComponent(form.getPanel());
+        LeftPanelForm leftPanelForm = new LeftPanelForm();
+        leftPanelForm.getTree().addTreeSelectionListener(this);
+        splitPane.setLeftComponent(leftPanelForm.getPanel());
+
+        // Register for events
+        EventManager.registerEventListener(new GenericEventListener() {
+            @Override
+            public void eventTriggered(Object sender, Event event) {
+                lookAndFeelChangeEventTriggered(sender, event);
+            }
+        }, LookAndFeelChangeEvent.class);
     }
 
     /**
@@ -100,6 +118,42 @@ public class SimpleCashDialog extends JDialog implements ActionListener {
         } else if (SimpleCashDialogAction.menu_admin_populatedb.equals(event.getActionCommand())) {
             DatabaseManagerDAO dbMgr = new DatabaseManagerDAO();
             dbMgr.populateWithTestData();
+        }
+    }
+
+    @Override
+    public void valueChanged(TreeSelectionEvent e) {
+        JTree tree = (JTree)((JPanel)splitPane.getLeftComponent()).getComponent(0);
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+
+        if (node == null) {
+            //Nothing is selected.
+            return;
+        }
+
+        // Note: path[0] is root node, which is always "Selection" and is not visible.
+        Object[] path = e.getNewLeadSelectionPath().getPath();
+        if (path[1].toString().equals(generalResourceBundle.getString("Options"))) {
+            if (path.length > 2) {
+                if (path[2].toString().equals(generalResourceBundle.getString("Interface"))) {
+                    splitPane.setRightComponent(new InterfaceOptionsForm().getPanel());
+                }
+            }
+        }
+    }
+
+    public void lookAndFeelChangeEventTriggered(Object sender, Event event) {
+
+        if (event == null || !event.getClass().equals(LookAndFeelChangeEvent.class)) {
+            return;
+        }
+        LookAndFeelOption lookAndFeelOption = (LookAndFeelOption)event.getPayload();
+
+        try {
+            UIManager.setLookAndFeel(lookAndFeelOption.getLookAndFeel().getCanonicalName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception ex) {
+            logger.error("Error changing look and feel.", ex);
         }
     }
 }
