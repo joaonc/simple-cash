@@ -187,11 +187,15 @@
 
         <!-- Docking Framework -->
         <!-- "Docking Frames" at http://dock.javaforge.com and https://github.com/Benoker/DockingFrames -->
+<!--
+
         <dependency>
             <groupId>org.dockingframes</groupId>
             <artifactId>docking-frames-common</artifactId>
             <version>1.1.0</version>
         </dependency>
+
+-->
 
         <!-- Testing -->
         <dependency>
