@@ -22,8 +22,7 @@ public class Main {
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream(propertiesFileUrl.getFile()));
-            if (properties.getProperty("Locale") != null)
-            {
+            if (properties.getProperty("Locale") != null) {
                 Locale.setDefault(new Locale(properties.getProperty("Locale")));
             }
         } catch (IOException e) {

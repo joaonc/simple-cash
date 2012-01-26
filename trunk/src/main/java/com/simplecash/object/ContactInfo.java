@@ -12,6 +12,7 @@ public class ContactInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String type;
+    private String value;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_contactInfoType")
@@ -41,5 +42,13 @@ public class ContactInfo {
 
     public void setContactInfoType(ContactInfoType.Type contactInfoType) {
         this.contactInfoType = new ContactInfoType(contactInfoType);
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

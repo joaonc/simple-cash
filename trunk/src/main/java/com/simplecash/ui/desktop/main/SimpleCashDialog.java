@@ -36,6 +36,7 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
         LeftPanelForm leftPanelForm = new LeftPanelForm();
         leftPanelForm.getTree().addTreeSelectionListener(this);
         splitPane.setLeftComponent(leftPanelForm.getPanel());
+        splitPane.setRightComponent(new WelcomeForm().getPanel());
 
         // Register for events
         EventManager.registerEventListener(new GenericEventListener() {
@@ -133,9 +134,21 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
 
         // Note: path[0] is root node, which is always "Selection" and is not visible.
         Object[] path = e.getNewLeadSelectionPath().getPath();
-        if (path[1].toString().equals(generalResourceBundle.getString("Options"))) {
-            if (path.length > 2) {
-                if (path[2].toString().equals(generalResourceBundle.getString("Interface"))) {
+        String path1 = path[1].toString();
+        String path2 = null;
+        if (path.length > 2) {
+            path2 = path[2].toString();
+        }
+        
+        if (path1.equals(generalResourceBundle.getString("Clients"))) {
+            if (path2 != null) {
+                if (path2.equals(generalResourceBundle.getString("New"))) {
+                    splitPane.setRightComponent(new ContactInfosForm().getMainPanel());
+                }
+            }
+        } else if (path1.equals(generalResourceBundle.getString("Options"))) {
+            if (path2 != null) {
+                if (path2.equals(generalResourceBundle.getString("Interface"))) {
                     splitPane.setRightComponent(new InterfaceOptionsForm().getPanel());
                 }
             }
