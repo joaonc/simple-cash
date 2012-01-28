@@ -1,7 +1,8 @@
 package com.simplecash.ui.desktop;
 
+import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
+
 import javax.swing.*;
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 /**
@@ -11,7 +12,7 @@ public class WelcomeForm {
     private JPanel panel;
     private JTextArea textArea;
 
-    private final ResourceBundle generalResourceBundle = GeneralResourceBundle.getInstance();
+    private final ResourceBundle generalResourceBundle = ResourceBundleFactory.getGeneralBundle();
 
     public WelcomeForm() {
         textArea.setOpaque(false);

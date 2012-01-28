@@ -1,10 +1,9 @@
 package com.simplecash.ui.desktop;
 
+import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
+
 import javax.swing.*;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.*;
-import java.util.ResourceBundle;
 
 /**
  * The left panel where the action options are.
@@ -33,35 +32,35 @@ public class LeftPanelForm  {
      */
     private void createUIComponents() {
         DefaultMutableTreeNode top = new DefaultMutableTreeNode(
-                GeneralResourceBundle.getInstance().getString("Selection"));
+                ResourceBundleFactory.getGeneralBundle().getString("Selection"));
 
         // Clients
         DefaultMutableTreeNode client = new DefaultMutableTreeNode(
-                GeneralResourceBundle.getInstance().getString("Clients"));
+                ResourceBundleFactory.getGeneralBundle().getString("Clients"));
         DefaultMutableTreeNode client_new = new DefaultMutableTreeNode(
-                GeneralResourceBundle.getInstance().getString("New"));
+                ResourceBundleFactory.getGeneralBundle().getString("New"));
         client.add(client_new);
         DefaultMutableTreeNode client_list = new DefaultMutableTreeNode(
-                GeneralResourceBundle.getInstance().getString("List_verb"));
+                ResourceBundleFactory.getGeneralBundle().getString("List_verb"));
         client.add(client_list);
         top.add(client);
 
         // Suppliers
         DefaultMutableTreeNode supplier = new DefaultMutableTreeNode(
-                GeneralResourceBundle.getInstance().getString("Suppliers"));
+                ResourceBundleFactory.getGeneralBundle().getString("Suppliers"));
         DefaultMutableTreeNode supplier_new = new DefaultMutableTreeNode(
-                GeneralResourceBundle.getInstance().getString("New"));
+                ResourceBundleFactory.getGeneralBundle().getString("New"));
         supplier.add((supplier_new));
         DefaultMutableTreeNode supplier_list = new DefaultMutableTreeNode(
-                GeneralResourceBundle.getInstance().getString("List_verb"));
+                ResourceBundleFactory.getGeneralBundle().getString("List_verb"));
         supplier.add(supplier_list);
         top.add(supplier);
 
         // Options
         DefaultMutableTreeNode options = new DefaultMutableTreeNode(
-                GeneralResourceBundle.getInstance().getString("Options"));
+                ResourceBundleFactory.getGeneralBundle().getString("Options"));
         DefaultMutableTreeNode options_interface = new DefaultMutableTreeNode(
-                GeneralResourceBundle.getInstance().getString("Interface"));
+                ResourceBundleFactory.getGeneralBundle().getString("Interface"));
         options.add(options_interface);
         top.add(options);
 
