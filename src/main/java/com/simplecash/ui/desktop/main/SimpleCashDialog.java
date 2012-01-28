@@ -45,9 +45,9 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
 
         createMenu();
 
-        LeftPanelForm leftPanelForm = new LeftPanelForm();
-        leftPanelForm.getTree().addTreeSelectionListener(this);
-        splitPane.setLeftComponent(leftPanelForm.getPanel());
+        LeftPanel leftPanel = new LeftPanel();
+        leftPanel.getTree().addTreeSelectionListener(this);
+        splitPane.setLeftComponent(leftPanel);
         splitPane.setRightComponent(new WelcomeForm().getPanel());
 
         // Register for events

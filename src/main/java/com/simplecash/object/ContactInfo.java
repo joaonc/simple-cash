@@ -54,4 +54,10 @@ public class ContactInfo {
         this.value = value;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Type: %s, TypeDescription: %s, Value: %s",
+                contactInfoType.getType().toString(), type, value);
+    }
 }
