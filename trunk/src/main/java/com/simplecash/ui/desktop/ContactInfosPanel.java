@@ -25,9 +25,10 @@ public class ContactInfosPanel extends JPanel {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ResourceBundle generalResourceBundle = ResourceBundleFactory.getGeneralBundle();
+    private final ResourceBundle messagesResourceBundle = ResourceBundleFactory.getMessagesBundle();
 
     /**
-     * Constraints to use when adding a ContactInfoForm.
+     * Constraints to use when adding a ContactInfoPanel.
      * gridy needs to be changed.
      */
     private final GridBagConstraints contactInfoFormGridBagConstraints = new GridBagConstraints(
@@ -42,7 +43,7 @@ public class ContactInfosPanel extends JPanel {
     public ContactInfosPanel(Set<ContactInfo> contactInfos) {
         super(new GridBagLayout());
         this.contactInfos = contactInfos;
-        updateUi();
+        setUI();
     }
 
     public Set<ContactInfo> getContactInfos() {
@@ -51,10 +52,16 @@ public class ContactInfosPanel extends JPanel {
 
     public void setContactInfos(Set<ContactInfo> contactInfos) {
         this.contactInfos = contactInfos;
-        updateUi();
+        setUI();
     }
 
-    public void updateUi() {
+    public void clearUI () {
+        while (getComponents().length > 0) {
+            remove(0);
+        }
+    }
+
+    public void setUI() {
         if (contactInfos == null) {
             contactInfos = new LinkedHashSet<ContactInfo>();
         }
@@ -84,14 +91,14 @@ public class ContactInfosPanel extends JPanel {
             // All the contact information for this type
             c = (GridBagConstraints)contactInfoFormGridBagConstraints.clone();
             for (ContactInfo contactInfo : contactInfosOfType) {
-                ContactInfoForm ciForm = new ContactInfoForm(true, contactInfo);
+                ContactInfoPanel ciPanel = new ContactInfoPanel(true, contactInfo);
                 c.gridy = gridy++;
-                add(ciForm.getPanel(), c);
+//                add(ciForm.getPanel(), c);
+                add(ciPanel, c);
 
-                ciForm.getButtonDelete().addActionListener(new ActionListener() {
+                ciPanel.getButtonDelete().addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-//                        Object[] eventObject = new Object[] {ciForm.getButtonDelete()};
                         actionPerformed_buttonContactInfoDelete_Click(e);
                     }
                 });
@@ -120,24 +127,32 @@ public class ContactInfosPanel extends JPanel {
         Component vSpacer = Box.createVerticalGlue();
         c = new GridBagConstraints();
         c.gridx = 0;
-        c.gridy = gridy++;
+        c.gridy = gridy;
         c.weighty = 1.0;  // Request any extra vertical space
         c.fill = GridBagConstraints.VERTICAL;
         add(vSpacer, c);
 
         validate();
+        repaint();
     }
 
     public void actionPerformed_buttonContactInfoDelete_Click(ActionEvent e) {
-        logger.debug("Delete button clicked: ");
-
         JButton button = (JButton)e.getSource();
-        if (JOptionPane.showConfirmDialog(null, "message", "title", JOptionPane.YES_NO_OPTION) ==
+        ContactInfoPanel contactInfoPanel = (ContactInfoPanel)button.getParent();
+        ContactInfo contactInfo = contactInfoPanel.getContactInfo();
+        
+        String message = String.format(messagesResourceBundle.getString("DeleteContactInfoConfirmation"),
+                generalResourceBundle.getString(contactInfo.getContactInfoType().toString()), contactInfo.getValue());
+        if (JOptionPane.showConfirmDialog(
+                null, message, generalResourceBundle.getString("Confirmation"), JOptionPane.YES_NO_OPTION) ==
                 JOptionPane.YES_OPTION) {
-            logger.debug("YES");
+            logger.debug("Deleting contact information: " + contactInfo.toString());
 
+            contactInfos.remove(contactInfo);
+            remove(contactInfoPanel);
+            clearUI();
+            setUI();
         }
-//        ContactInfoForm ciForm = (ContactInfoForm)button.getParent();
     }
 
     public void actionPerformed_buttonContactInfoAdd_Click(ActionEvent e) {
