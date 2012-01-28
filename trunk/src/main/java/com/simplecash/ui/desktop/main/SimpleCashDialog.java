@@ -8,6 +8,7 @@ import com.simplecash.ui.desktop.event.LookAndFeelChangeEvent;
 import com.simplecash.ui.desktop.*;
 import com.simplecash.ui.desktop.LookAndFeelOption;
 import com.simplecash.ui.desktop.options.InterfaceOptionsForm;
+import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
 import javaEventing.EventManager;
 import javaEventing.interfaces.Event;
 import javaEventing.interfaces.GenericEventListener;
@@ -31,7 +32,7 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
     final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ResourceBundle simpleCashDialogResourceBundle =
             PropertyResourceBundle.getBundle(SimpleCashDialog.class.getCanonicalName());
-    private final ResourceBundle generalResourceBundle = GeneralResourceBundle.getInstance();
+    private final ResourceBundle generalResourceBundle = ResourceBundleFactory.getGeneralBundle();
 
     public SimpleCashDialog() {
         setContentPane(contentPane);

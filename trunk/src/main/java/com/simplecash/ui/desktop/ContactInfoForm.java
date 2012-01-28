@@ -32,6 +32,10 @@ public class ContactInfoForm {
         return labelKey;
     }
 
+    public JButton getButtonDelete() {
+        return buttonDelete;
+    }
+
     public void setContactInfo(ContactInfo contactInfo) {
         this.contactInfo = contactInfo;
         labelKey.setText(contactInfo.getType());
