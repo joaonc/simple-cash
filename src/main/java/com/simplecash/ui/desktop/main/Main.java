@@ -1,5 +1,6 @@
 package com.simplecash.ui.desktop.main;
 
+import com.simplecash.dal.RepositoryFactory;
 import org.slf4j.*;
 
 import java.io.FileInputStream;
