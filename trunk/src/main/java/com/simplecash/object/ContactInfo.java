@@ -32,23 +32,26 @@ public class ContactInfo {
     /**
      * Set the type of contact info (Home, Work, etc.)
      */
-    public void setType(String type) {
+    public ContactInfo setType(String type) {
         this.type = type;
+        return this;
     }
 
     public ContactInfoType.Type getContactInfoType() {
         return contactInfoType.getType();
     }
 
-    public void setContactInfoType(ContactInfoType.Type contactInfoType) {
+    public ContactInfo setContactInfoType(ContactInfoType.Type contactInfoType) {
         this.contactInfoType = new ContactInfoType(contactInfoType);
+        return this;
     }
 
     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public ContactInfo setValue(String value) {
         this.value = value;
+        return this;
     }
 }

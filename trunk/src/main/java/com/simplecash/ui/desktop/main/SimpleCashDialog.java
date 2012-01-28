@@ -2,6 +2,8 @@ package com.simplecash.ui.desktop.main;
 
 import com.simplecash.dal.DatabaseManagerDAO;
 
+import com.simplecash.object.ContactInfo;
+import com.simplecash.object.ContactInfoType;
 import com.simplecash.ui.desktop.event.LookAndFeelChangeEvent;
 import com.simplecash.ui.desktop.*;
 import com.simplecash.ui.desktop.LookAndFeelOption;
@@ -15,15 +17,18 @@ import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.*;
 import java.awt.event.*;
+import java.util.LinkedHashSet;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class SimpleCashDialog extends JDialog implements ActionListener, TreeSelectionListener {
     private JPanel contentPane;
     private JSplitPane splitPane;
 
-    final Logger logger = LoggerFactory.getLogger(SimpleCashDialog.class);
+    final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ResourceBundle simpleCashDialogResourceBundle =
             PropertyResourceBundle.getBundle(SimpleCashDialog.class.getCanonicalName());
     private final ResourceBundle generalResourceBundle = GeneralResourceBundle.getInstance();
@@ -31,6 +36,12 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
     public SimpleCashDialog() {
         setContentPane(contentPane);
         setModal(true);
+
+        Dimension initialDimension = new Dimension(600, 400);
+        setPreferredSize(initialDimension);
+        setMinimumSize(initialDimension);
+        setLocationRelativeTo(null);  // Center screen
+
         createMenu();
 
         LeftPanelForm leftPanelForm = new LeftPanelForm();
@@ -143,7 +154,14 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
         if (path1.equals(generalResourceBundle.getString("Clients"))) {
             if (path2 != null) {
                 if (path2.equals(generalResourceBundle.getString("New"))) {
-                    splitPane.setRightComponent(new ContactInfosForm().getMainPanel());
+                    Set<ContactInfo> contactInfos = new LinkedHashSet<ContactInfo>();
+                    contactInfos.add(new ContactInfo()
+                        .setContactInfoType(ContactInfoType.Type.Email).setType("HOME").setValue("home@email.com"));
+                    contactInfos.add(new ContactInfo()
+                            .setContactInfoType(ContactInfoType.Type.Email).setType("WORK").setValue("work@email.com"));
+                    contactInfos.add(new ContactInfo()
+                            .setContactInfoType(ContactInfoType.Type.Telephone).setType("Vodafone").setValue("555111222"));
+                    splitPane.setRightComponent(new ContactInfosForm(contactInfos).getMainPanel());
                 }
             }
         } else if (path1.equals(generalResourceBundle.getString("Options"))) {
