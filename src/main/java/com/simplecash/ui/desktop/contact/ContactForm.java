@@ -1,4 +1,4 @@
-package com.simplecash.ui.desktop;
+package com.simplecash.ui.desktop.contact;
 
 import com.simplecash.object.ContactInfo;
 import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  *
  */
-public class ContactInfosForm {
+public class ContactForm {
     private JPanel mainPanel;
     private JButton buttonOk;
     private JButton buttonCancel;
@@ -25,12 +25,12 @@ public class ContactInfosForm {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ResourceBundle generalResourceBundle = ResourceBundleFactory.getGeneralBundle();
 
-    public ContactInfosForm() {
+    public ContactForm() {
         super();
         initialize();
     }
 
-    public ContactInfosForm(Set<ContactInfo> contactInfos) {
+    public ContactForm(Set<ContactInfo> contactInfos) {
         super();
         setContactInfos(contactInfos);
         initialize();

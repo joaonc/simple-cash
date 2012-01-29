@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
  * The left panel where the action options are.
  * Note that click events need to be registered outside this class,
  * in order to get the action from a user, do
- * <p><code>leftPanelForm.getTree().addTreeSelectionListener(myTreeSelectionListener);</code>
+ * <p><code>leftPanel.getTree().addTreeSelectionListener(myTreeSelectionListener);</code>
  */
 public class LeftPanel extends JPanel {
     private JTree tree;
@@ -67,6 +67,9 @@ public class LeftPanel extends JPanel {
         DefaultMutableTreeNode options_interface = new DefaultMutableTreeNode(
                 generalResourceBundle.getString("Interface"));
         options.add(options_interface);
+        DefaultMutableTreeNode options_about = new DefaultMutableTreeNode(
+                generalResourceBundle.getString("About"));
+        options.add(options_about);
         top.add(options);
 
         tree = new JTree(top);
