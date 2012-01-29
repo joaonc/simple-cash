@@ -1,4 +1,4 @@
-package com.simplecash.ui.desktop;
+package com.simplecash.ui.desktop.contact;
 
 import com.simplecash.object.ContactInfo;
 

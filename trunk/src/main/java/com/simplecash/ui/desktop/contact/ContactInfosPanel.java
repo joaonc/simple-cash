@@ -1,4 +1,4 @@
-package com.simplecash.ui.desktop;
+package com.simplecash.ui.desktop.contact;
 
 import com.simplecash.object.ContactInfo;
 import com.simplecash.object.ContactInfoType;
@@ -127,10 +127,22 @@ public class ContactInfosPanel extends JPanel {
         Component vSpacer = Box.createVerticalGlue();
         c = new GridBagConstraints();
         c.gridx = 0;
-        c.gridy = gridy;
+        c.gridy = gridy++;
         c.weighty = 1.0;  // Request any extra vertical space
         c.fill = GridBagConstraints.VERTICAL;
         add(vSpacer, c);
+
+        // Bottom component that claims all the horizontal space.
+        // Needed for when there are no ContactInfo elements,
+        // to force the remaining elements to be correctly distributed horizontally,
+        // instead of being aligned in the center, which is the default for GridBagLayout.
+        Component hSpacer = Box.createHorizontalGlue();
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = gridy;
+        c.weightx = 1.0;  // Request any extra horizontal space
+        c.fill = GridBagConstraints.HORIZONTAL;
+        add(hSpacer, c);
 
         validate();
         repaint();

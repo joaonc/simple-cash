@@ -1,19 +1,16 @@
 package com.simplecash.dal.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.util.StringUtils;
 
 import org.junit.*;
-import org.junit.runner.RunWith;
+
 import static org.junit.Assert.*;
+import com.jjcommon.*;
 
 import com.simplecash.object.*;
-import com.jjcommon.*;
 
 /**
  * Unit tests for BankRepository.
@@ -45,8 +42,8 @@ public class BankRepositoryTest extends AbstractTransactionalJUnit4SpringContext
     public void createTest() {
         Bank bank = new Bank();
         
-        bank.setName(StringUtil.createRandom(10));
-        bank.setCode(StringUtil.createRandom(10));
+        bank.setName(JJStringUtils.createRandom(5));
+        bank.setCode(JJStringUtils.createRandom(5));
 
         bank = bankRepository.saveAndFlush(bank);
         bankRepository.flush();

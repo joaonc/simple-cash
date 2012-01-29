@@ -4,9 +4,11 @@ import com.simplecash.dal.DatabaseManagerDAO;
 
 import com.simplecash.object.ContactInfo;
 import com.simplecash.object.ContactInfoType;
+import com.simplecash.ui.desktop.contact.ContactForm;
 import com.simplecash.ui.desktop.event.LookAndFeelChangeEvent;
 import com.simplecash.ui.desktop.*;
 import com.simplecash.ui.desktop.LookAndFeelOption;
+import com.simplecash.ui.desktop.options.AboutForm;
 import com.simplecash.ui.desktop.options.InterfaceOptionsForm;
 import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
 import javaEventing.EventManager;
@@ -48,7 +50,7 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
         LeftPanel leftPanel = new LeftPanel();
         leftPanel.getTree().addTreeSelectionListener(this);
         splitPane.setLeftComponent(leftPanel);
-        splitPane.setRightComponent(new WelcomeForm().getPanel());
+        splitPane.setRightComponent(new AboutForm().getPanel());
 
         // Register for events
         EventManager.registerEventListener(new GenericEventListener() {
@@ -134,6 +136,10 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
         }
     }
 
+    /**
+     * Called whenever the value of the selection in the LeftPanel changes.
+     * @param e the event that characterizes the change.
+     */
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         JTree tree = (JTree)((JPanel)splitPane.getLeftComponent()).getComponent(0);
@@ -151,8 +157,10 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
         if (path.length > 2) {
             path2 = path[2].toString();
         }
-        
-        if (path1.equals(generalResourceBundle.getString("Clients"))) {
+
+        if (path1.equals(generalResourceBundle.getString("MainPage"))) {
+        }
+        else if (path1.equals(generalResourceBundle.getString("Clients"))) {
             if (path2 != null) {
                 if (path2.equals(generalResourceBundle.getString("New"))) {
                     Set<ContactInfo> contactInfos = new LinkedHashSet<ContactInfo>();
@@ -162,13 +170,15 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
                             .setContactInfoType(ContactInfoType.Type.Email).setType("WORK").setValue("work@email.com"));
                     contactInfos.add(new ContactInfo()
                             .setContactInfoType(ContactInfoType.Type.Telephone).setType("Vodafone").setValue("555111222"));
-                    splitPane.setRightComponent(new ContactInfosForm(contactInfos).getMainPanel());
+                    splitPane.setRightComponent(new ContactForm(contactInfos).getMainPanel());
                 }
             }
         } else if (path1.equals(generalResourceBundle.getString("Options"))) {
             if (path2 != null) {
                 if (path2.equals(generalResourceBundle.getString("Interface"))) {
                     splitPane.setRightComponent(new InterfaceOptionsForm().getPanel());
+                } else if (path2.equals(generalResourceBundle.getString("About"))) {
+                    splitPane.setRightComponent(new AboutForm().getPanel());
                 }
             }
         }
