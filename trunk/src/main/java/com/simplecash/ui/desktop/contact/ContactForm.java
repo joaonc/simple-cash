@@ -1,6 +1,6 @@
 package com.simplecash.ui.desktop.contact;
 
-import com.simplecash.object.ContactInfo;
+import com.simplecash.object.Contact;
 import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 /**
  *
@@ -18,37 +17,44 @@ public class ContactForm {
     private JPanel mainPanel;
     private JButton buttonOk;
     private JButton buttonCancel;
-    private JPanel contactInfosPanel;
     private JTextArea textAreaTitle;
     private JScrollPane scrollPane;
+    private JPanel contactPanel;
+    private JPanel contactInfosPanel;
+    private JPanel addressesPanel;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ResourceBundle generalResourceBundle = ResourceBundleFactory.getGeneralBundle();
 
+    private Contact contact;
+    
     public ContactForm() {
         super();
-        initialize();
+        setUI();
     }
 
-    public ContactForm(Set<ContactInfo> contactInfos) {
+    public ContactForm(Contact contact) {
         super();
-        setContactInfos(contactInfos);
-        initialize();
+        this.contact = contact;
+        setUI();
     }
 
     public JPanel getMainPanel() {
         return mainPanel;
     }
 
-    public Set<ContactInfo> getContactInfos() {
-        return ((ContactInfosPanel)contactInfosPanel).getContactInfos();
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setContactInfos(Set<ContactInfo> contactInfos) {
-        ((ContactInfosPanel)contactInfosPanel).setContactInfos(contactInfos);
+    public void setContact(Contact contact) {
+        this.contact = contact;
+        setUI();
     }
 
-    protected void initialize() {
+    protected void setUI() {
+        ((ContactInfosPanel)contactInfosPanel).setContactInfos(contact.getContactInfos());
+        ((AddressesPanel)addressesPanel).setAddresses(contact.getAddresses());
 
         // Event Listeners
         buttonOk.addActionListener(new ActionListener() {
@@ -78,6 +84,7 @@ public class ContactForm {
      */
     private void createUIComponents() {
         contactInfosPanel = new ContactInfosPanel();
+        addressesPanel = new AddressesPanel(false);
     }
 
     public void actionPerformed_buttonOk_Click(ActionEvent e) {

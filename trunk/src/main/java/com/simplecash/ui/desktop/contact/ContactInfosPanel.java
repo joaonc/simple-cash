@@ -17,7 +17,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
- *
+ * Panel that contains the ContactInfo Set.
+ * Constituted of several ContactInfoPanel (singular Info).
  */
 public class ContactInfosPanel extends JPanel {
 
@@ -31,13 +32,14 @@ public class ContactInfosPanel extends JPanel {
      * Constraints to use when adding a ContactInfoPanel.
      * gridy needs to be changed.
      */
-    private final GridBagConstraints contactInfoFormGridBagConstraints = new GridBagConstraints(
+    private final GridBagConstraints contactInfoPanelGridBagConstraints = new GridBagConstraints(
             0, 0, 1, 1, 0.5, 0,
             GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
             new Insets(4, 5, 0, 2), 0, 0);
 
     public ContactInfosPanel() {
         super(new GridBagLayout());
+        setUI();
     }
 
     public ContactInfosPanel(Set<ContactInfo> contactInfos) {
@@ -61,7 +63,7 @@ public class ContactInfosPanel extends JPanel {
         }
     }
 
-    public void setUI() {
+    private void setUI() {
         if (contactInfos == null) {
             contactInfos = new LinkedHashSet<ContactInfo>();
         }
@@ -89,7 +91,7 @@ public class ContactInfosPanel extends JPanel {
             add(labelType, c);
 
             // All the contact information for this type
-            c = (GridBagConstraints)contactInfoFormGridBagConstraints.clone();
+            c = (GridBagConstraints) contactInfoPanelGridBagConstraints.clone();
             for (ContactInfo contactInfo : contactInfosOfType) {
                 ContactInfoPanel ciPanel = new ContactInfoPanel(true, contactInfo);
                 c.gridy = gridy++;
