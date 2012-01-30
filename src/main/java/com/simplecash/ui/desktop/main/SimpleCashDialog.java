@@ -2,6 +2,8 @@ package com.simplecash.ui.desktop.main;
 
 import com.simplecash.dal.DatabaseManagerDAO;
 
+import com.simplecash.object.Address;
+import com.simplecash.object.Contact;
 import com.simplecash.object.ContactInfo;
 import com.simplecash.object.ContactInfoType;
 import com.simplecash.ui.desktop.contact.ContactForm;
@@ -170,7 +172,15 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
                             .setContactInfoType(ContactInfoType.Type.Email).setType("WORK").setValue("work@email.com"));
                     contactInfos.add(new ContactInfo()
                             .setContactInfoType(ContactInfoType.Type.Telephone).setType("Vodafone").setValue("555111222"));
-                    splitPane.setRightComponent(new ContactForm(contactInfos).getMainPanel());
+
+                    Set<Address> addresses = new LinkedHashSet<Address>();
+                    addresses.add(new Address().setName("Homez").setAddress1("addr1").setPostalCode("1234-900"));
+
+                    Contact contact = new Contact();
+                    contact.setContactInfos(contactInfos);
+                    contact.setAddresses(addresses);
+
+                    splitPane.setRightComponent(new ContactForm(contact).getMainPanel());
                 }
             }
         } else if (path1.equals(generalResourceBundle.getString("Options"))) {

@@ -37,71 +37,80 @@ public class Address {
         return name;
     }
 
-    public void setName(String name) {
+    public Address setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getNotes() {
         return notes;
     }
 
-    public void setNotes(String notes) {
+    public Address setNotes(String notes) {
         this.notes = notes;
+        return this;
     }
 
     public String getAddress1() {
         return address1;
     }
 
-    public void setAddress1(String address1) {
+    public Address setAddress1(String address1) {
         this.address1 = address1;
+        return this;
     }
 
     public String getAddress2() {
         return address2;
     }
 
-    public void setAddress2(String address2) {
+    public Address setAddress2(String address2) {
         this.address2 = address2;
+        return this;
     }
 
     public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public Address setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+        return this;
     }
 
     public String getCounty() {
         return county;
     }
 
-    public void setCounty(String county) {
+    public Address setCounty(String county) {
         this.county = county;
+        return this;
     }
 
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public Address setState(String state) {
         this.state = state;
+        return this;
     }
 
     public String getRegion() {
         return region;
     }
 
-    public void setRegion(String region) {
+    public Address setRegion(String region) {
         this.region = region;
+        return this;
     }
 
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public Address setCountry(String country) {
         this.country = country;
+        return this;
     }
 }

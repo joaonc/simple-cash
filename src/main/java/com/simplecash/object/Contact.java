@@ -46,15 +46,17 @@ public class Contact {
         return contactInfos;
     }
 
-    public void setContactInfos(Set<ContactInfo> contactInfos) {
+    public Contact setContactInfos(Set<ContactInfo> contactInfos) {
         this.contactInfos = contactInfos;
+        return this;
     }
 
     public Set<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(Set<Address> addresses) {
+    public Contact setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
+        return this;
     }
 }
