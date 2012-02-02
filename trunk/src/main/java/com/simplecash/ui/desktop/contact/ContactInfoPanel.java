@@ -70,7 +70,7 @@ public class ContactInfoPanel extends JPanel {
         c.gridy = 0;
         c.weightx = 0.5;
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0, 2, 0, 2);
+        c.insets = new Insets(0, 3, 0, 3);
         add(textFieldValue, c);
         
         buttonDelete = new JButton("x");

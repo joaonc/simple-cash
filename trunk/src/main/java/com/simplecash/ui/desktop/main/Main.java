@@ -1,8 +1,10 @@
 package com.simplecash.ui.desktop.main;
 
 import com.simplecash.dal.RepositoryFactory;
+import com.simplecash.ui.desktop.LookAndFeelOption;
 import org.slf4j.*;
 
+import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -23,8 +25,25 @@ public class Main {
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream(propertiesFileUrl.getFile()));
-            if (properties.getProperty("Locale") != null) {
-                Locale.setDefault(new Locale(properties.getProperty("Locale")));
+            
+            String locale = properties.getProperty("Locale");
+            if (locale != null) {
+                Locale.setDefault(new Locale(locale));
+            }
+            
+            String lookAndFeelName = properties.getProperty("LookAndFeel");
+            if (lookAndFeelName != null) {
+                Class lookAndFeelClass = LookAndFeelOption.getLookAndFeelByName(lookAndFeelName);
+                if (lookAndFeelClass != null) {
+                    try {
+                        UIManager.setLookAndFeel(lookAndFeelClass.getCanonicalName());
+                    } catch (Exception e) {
+                        logger.error("Error setting LookAndFeel.", e);
+                    }
+                }
+                else {
+                    logger.error("LookAndFeel not found: " + lookAndFeelName);
+                }
             }
         } catch (IOException e) {
             logger.error(String.format("Properties file not found: %s, going with defaults.", propertiesFile));

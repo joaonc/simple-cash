@@ -20,9 +20,21 @@ public enum LookAndFeelOption {
         return lookAndFeel;
     }
 
+    /**
+     * Gets the LookAndFeel class by the enum name.
+     * @param name The enum name.
+     * @return The LookAndFeel class or null if not found.
+     */
     public static Class getLookAndFeelByName(String name) {
+        Class lookAndFeelClass = null;
 
-        LookAndFeelOption lookAndFeel1 = Enum.valueOf(LookAndFeelOption.class, name);
-        return lookAndFeel1.getLookAndFeel();
+        try {
+            LookAndFeelOption lookAndFeel1 = Enum.valueOf(LookAndFeelOption.class, name);
+            lookAndFeelClass = lookAndFeel1.getLookAndFeel();
+        } catch (Exception e) {
+            // do nothing
+        }
+
+        return lookAndFeelClass;
     }
 }
