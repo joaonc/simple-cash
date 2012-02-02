@@ -171,6 +171,8 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
                     contactInfos.add(new ContactInfo()
                             .setContactInfoType(ContactInfoType.Type.Email).setType("WORK").setValue("work@email.com"));
                     contactInfos.add(new ContactInfo()
+                            .setContactInfoType(ContactInfoType.Type.Email).setType("WORK_2").setValue("work2@email.com"));
+                    contactInfos.add(new ContactInfo()
                             .setContactInfoType(ContactInfoType.Type.Telephone).setType("Vodafone").setValue("555111222"));
 
                     Set<Address> addresses = new LinkedHashSet<Address>();

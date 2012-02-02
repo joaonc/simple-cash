@@ -54,15 +54,24 @@ public class ContactInfosPanel extends JPanel {
 
     public void setContactInfos(Set<ContactInfo> contactInfos) {
         this.contactInfos = contactInfos;
+        clearUI();
         setUI();
     }
 
-    public void clearUI () {
+    /**
+     * Removes all the UI components.
+     */
+    private void clearUI () {
         while (getComponents().length > 0) {
             remove(0);
         }
+        validate();
+        repaint();
     }
 
+    /**
+     * Sets all the UI components from the object represented.
+     */
     private void setUI() {
         if (contactInfos == null) {
             contactInfos = new LinkedHashSet<ContactInfo>();
@@ -81,8 +90,7 @@ public class ContactInfosPanel extends JPanel {
             });
 
             // Label that mentions the contact info type
-            JLabel labelType = new JLabel(
-                    generalResourceBundle.getString(contactInfoType.toString()));
+            JLabel labelType = new JLabel(generalResourceBundle.getString(contactInfoType.toString()));
             c = new GridBagConstraints();
             c.gridx = 0;
             c.gridy = gridy++;
@@ -91,11 +99,11 @@ public class ContactInfosPanel extends JPanel {
             add(labelType, c);
 
             // All the contact information for this type
-            c = (GridBagConstraints) contactInfoPanelGridBagConstraints.clone();
+            c = (GridBagConstraints)contactInfoPanelGridBagConstraints.clone();
             for (ContactInfo contactInfo : contactInfosOfType) {
                 ContactInfoPanel ciPanel = new ContactInfoPanel(true, contactInfo);
+                c.gridx = 0;
                 c.gridy = gridy++;
-//                add(ciForm.getPanel(), c);
                 add(ciPanel, c);
 
                 ciPanel.getButtonDelete().addActionListener(new ActionListener() {
@@ -147,7 +155,6 @@ public class ContactInfosPanel extends JPanel {
         add(hSpacer, c);
 
         validate();
-        repaint();
     }
 
     public void actionPerformed_buttonContactInfoDelete_Click(ActionEvent e) {
