@@ -6,7 +6,7 @@ import com.simplecash.object.Address;
 import com.simplecash.object.Contact;
 import com.simplecash.object.ContactInfo;
 import com.simplecash.object.ContactInfoType;
-import com.simplecash.ui.desktop.contact.ContactForm;
+import com.simplecash.ui.desktop.component.contact.ContactForm;
 import com.simplecash.ui.desktop.event.LookAndFeelChangeEvent;
 import com.simplecash.ui.desktop.*;
 import com.simplecash.ui.desktop.LookAndFeelOption;

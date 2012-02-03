@@ -1,4 +1,4 @@
-package com.simplecash.ui.desktop.contact;
+package com.simplecash.ui.desktop.component.contact;
 
 import com.simplecash.dal.RepositoryFactory;
 import com.simplecash.dal.repository.ContactRepository;
