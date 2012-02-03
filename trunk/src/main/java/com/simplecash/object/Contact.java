@@ -65,7 +65,7 @@ public class Contact {
      * Adds a blob of contact information.
      *
      * @param contactInfo    The contact information. Does nothing if <code>null</code>.
-     * @return The contact.
+     * @return  The contact.
      */
     public Contact addContactInfo(ContactInfo contactInfo) {
         if (contactInfo != null) {
@@ -82,7 +82,7 @@ public class Contact {
      * Adds an address.
      *
      * @param address    The address. Does nothing if <code>null</code>.
-     * @return The contact.
+     * @return  The contact.
      */
     public Contact addAddress(Address address) {
         if (address != null) {

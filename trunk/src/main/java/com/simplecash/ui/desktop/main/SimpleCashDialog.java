@@ -127,14 +127,11 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
         } else if (SimpleCashDialogAction.menu_file_login_logout.equals(event.getActionCommand())) {
             // TODO: log in/out
         } else if (SimpleCashDialogAction.menu_admin_createdb.equals(event.getActionCommand())) {
-            DatabaseManagerDAO dbMgr = new DatabaseManagerDAO();
-            dbMgr.createDatabaseSchema();
+            DatabaseManagerDAO.createDatabaseSchema();
         } else if (SimpleCashDialogAction.menu_admin_updatedb.equals(event.getActionCommand())) {
-            DatabaseManagerDAO dbMgr = new DatabaseManagerDAO();
-            dbMgr.updateDatabaseSchema();
+            DatabaseManagerDAO.updateDatabaseSchema();
         } else if (SimpleCashDialogAction.menu_admin_populatedb.equals(event.getActionCommand())) {
-            DatabaseManagerDAO dbMgr = new DatabaseManagerDAO();
-            dbMgr.populateWithTestData();
+            DatabaseManagerDAO.populateWithTestData();
         }
     }
 
@@ -177,6 +174,7 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
 
                     Set<Address> addresses = new LinkedHashSet<Address>();
                     addresses.add(new Address().setName("Homez").setAddress1("addr1").setPostalCode("1234-900"));
+                    addresses.add(new Address().setName("Vacation").setAddress1("333 holliday inn").setPostalCode("1234-900"));
 
                     Contact contact = new Contact();
                     contact.setContactInfos(contactInfos);

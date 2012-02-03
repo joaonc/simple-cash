@@ -23,7 +23,7 @@ public class DatabaseManagerDAO {
 
 //    RepositoryFactorySupport factory;
 
-    public void createDatabaseSchema() {
+    public static void createDatabaseSchema() {
         // To not use the Configuration object below for SchemaExport, check out
         // http://hillert.blogspot.com/2010/05/using-hibernates-schemaexport-feature.html
 
@@ -35,14 +35,14 @@ public class DatabaseManagerDAO {
         schemaExport.create(true, true);
     }
 
-    public void updateDatabaseSchema() {
+    public static void updateDatabaseSchema() {
 
     }
 
     /**
      * Populates the database with required data, especially static tables.
      */
-    public  void populateWithRequiredData() throws DbSchemaException {
+    public static void populateWithRequiredData() throws DbSchemaException {
 
         RepositoryFactory.getEntityManager().getTransaction().begin();
 
@@ -61,9 +61,12 @@ public class DatabaseManagerDAO {
             DbInfo currentDbInfo = currentDbInfos.get(0);  // The most recent one
             int dbComparison = dbInfo.compareTo(currentDbInfo);
             if (dbComparison == 1) {
-                // TODO: Trigger db update
-                dbInfoRepository.save(dbInfo);
+                RepositoryFactory.getEntityManager().getTransaction().rollback();
+                throw new DbSchemaException(String.format(
+                        "Database version is lower than what the application supports.\n" +
+                                "DB version: %s, Application: %s", currentDbInfo, dbInfo));
             } else if (dbComparison == -1) {
+                RepositoryFactory.getEntityManager().getTransaction().rollback();
                 throw new DbSchemaException(String.format(
                         "Database version is higher than what the application supports.\n" +
                         "DB version: %s, Application: %s", currentDbInfo, dbInfo));
@@ -88,7 +91,7 @@ public class DatabaseManagerDAO {
     }
 
     @Transactional
-    public void populateWithTestData() {
+    public static void populateWithTestData() {
 
         RepositoryFactory.getEntityManager().getTransaction().begin();
 

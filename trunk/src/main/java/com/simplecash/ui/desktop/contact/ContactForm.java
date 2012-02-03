@@ -27,9 +27,10 @@ public class ContactForm {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ResourceBundle generalResourceBundle = ResourceBundleFactory.getGeneralBundle();
+    private final ResourceBundle messageResourceBundle = ResourceBundleFactory.getMessagesBundle();
 
     private Contact contact;
-    
+
     public ContactForm() {
         super();
         setUI();
@@ -96,12 +97,21 @@ public class ContactForm {
 
     public void actionPerformed_buttonOk_Click(ActionEvent e) {
         RepositoryFactory.getEntityManager().getTransaction().begin();
-        ContactRepository contactRepository = RepositoryFactory.getRepository(ContactRepository.class);
 
-        Contact c = getContact();
-        contactRepository.save(c);
+        try {
+            ContactRepository contactRepository = RepositoryFactory.getRepository(ContactRepository.class);
 
-        RepositoryFactory.getEntityManager().getTransaction().commit();
+            Contact c = getContact();
+            contactRepository.save(c);
+
+            RepositoryFactory.getEntityManager().getTransaction().commit();
+        } catch (Exception ex) {
+            logger.error("Error saving Contact.", ex);
+            RepositoryFactory.getEntityManager().getTransaction().rollback();
+        }
+
+        JOptionPane.showConfirmDialog(this.mainPanel,
+                messageResourceBundle.getString("ContactSavedOk"), "" , JOptionPane.OK_OPTION);
     }
 
     public void actionPerformed_buttonCancel_Click(ActionEvent e) {
