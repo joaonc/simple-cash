@@ -51,6 +51,7 @@ public class AddressPanel extends JPanel {
     }
 
     public Address getAddress() {
+        refreshFromUI();
         return address;
     }
 
@@ -100,5 +101,16 @@ public class AddressPanel extends JPanel {
         c = (GridBagConstraints)textFieldConstraints.clone();
         c.gridy = gridy;
         add(textAreaNotes, c);
+    }
+
+    public void refreshFromUI() {
+        address.setAddress1(textFieldAddress1.getText());
+        address.setAddress2(textFieldAddress2.getText());
+        address.setCounty(textFieldCounty.getText());
+        address.setState(textFieldState.getText());
+        address.setPostalCode(textFieldPostalCode.getText());
+//        address.setRegion(textFieldRegion.getText());
+//        address.setCountry(textFieldCountry.getText());
+        address.setNotes(textAreaNotes.getText());
     }
 }

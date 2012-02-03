@@ -1,5 +1,6 @@
 package com.simplecash.ui.desktop.contact;
 
+import com.jjcommon.ui.desktop.ComponentUtils;
 import com.simplecash.object.Address;
 import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
 import org.slf4j.Logger;
@@ -47,6 +48,7 @@ public class AddressesPanel extends JPanel {
     }
 
     public Set<Address> getAddresses() {
+        refreshFromUI();
         return addresses;
     }
 
@@ -120,10 +122,18 @@ public class AddressesPanel extends JPanel {
         });
     }
 
+    public void refreshFromUI() {
+        // Refresh with values from UI
+        // This panel is made of just AddressPanel panels
+        for(Component component : ComponentUtils.filterByClass(getComponents(), AddressPanel.class)) {
+            AddressPanel addressPanel = (AddressPanel)component;
+            addressPanel.refreshFromUI();
+        }
+    }
+
     public void actionPerformed_buttonContactInfoAdd_Click(ActionEvent e) {
         logger.debug("Add button clicked: " + e.getActionCommand());
 
         JButton button = (JButton)e.getSource();
     }
-
 }

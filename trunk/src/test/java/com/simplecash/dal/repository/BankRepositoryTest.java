@@ -6,7 +6,6 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import org.junit.*;
-
 import static org.junit.Assert.*;
 import com.jjcommon.*;
 
@@ -14,7 +13,7 @@ import com.simplecash.object.*;
 
 /**
  * Unit tests for BankRepository.
- * Note that some of these tests change the database and should never be run against production.
+ * These tests change the database and should never be run against production.
  */
 //@Transactional
 //@RunWith(SpringJUnit4ClassRunner.class)

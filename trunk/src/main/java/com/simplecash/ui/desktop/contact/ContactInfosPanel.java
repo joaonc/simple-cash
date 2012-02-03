@@ -1,5 +1,6 @@
 package com.simplecash.ui.desktop.contact;
 
+import com.jjcommon.ui.desktop.ComponentUtils;
 import com.simplecash.object.ContactInfo;
 import com.simplecash.object.ContactInfoType;
 import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
@@ -49,6 +50,7 @@ public class ContactInfosPanel extends JPanel {
     }
 
     public Set<ContactInfo> getContactInfos() {
+        refreshFromUI();
         return contactInfos;
     }
 
@@ -155,6 +157,14 @@ public class ContactInfosPanel extends JPanel {
         add(hSpacer, c);
 
         validate();
+    }
+
+    public void refreshFromUI() {
+        // Refresh with values from UI
+        for(Component component : ComponentUtils.filterByClass(getComponents(), ContactInfoPanel.class)) {
+            ContactInfoPanel ciPanel = (ContactInfoPanel)component;
+            ciPanel.refreshFromUI();
+        }
     }
 
     public void actionPerformed_buttonContactInfoDelete_Click(ActionEvent e) {

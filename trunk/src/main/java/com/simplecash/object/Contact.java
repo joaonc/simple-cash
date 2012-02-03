@@ -1,6 +1,7 @@
 package com.simplecash.object;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -57,6 +58,40 @@ public class Contact {
 
     public Contact setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
+        return this;
+    }
+
+    /**
+     * Adds a blob of contact information.
+     *
+     * @param contactInfo    The contact information. Does nothing if <code>null</code>.
+     * @return The contact.
+     */
+    public Contact addContactInfo(ContactInfo contactInfo) {
+        if (contactInfo != null) {
+            if (contactInfos == null) {
+                contactInfos = new LinkedHashSet<ContactInfo>();
+            }
+            contactInfos.add(contactInfo);
+        }
+
+        return this;
+    }
+
+    /**
+     * Adds an address.
+     *
+     * @param address    The address. Does nothing if <code>null</code>.
+     * @return The contact.
+     */
+    public Contact addAddress(Address address) {
+        if (address != null) {
+            if (addresses == null) {
+                addresses = new LinkedHashSet<Address>();
+            }
+            addresses.add(address);
+        }
+
         return this;
     }
 }

@@ -25,6 +25,7 @@ public class ContactInfoPanel extends JPanel {
     }
 
     public ContactInfo getContactInfo() {
+        refreshFromUI();
         return contactInfo;
     }
 
@@ -93,5 +94,11 @@ public class ContactInfoPanel extends JPanel {
         textFieldValue.setEditable(editable);
         
         buttonDelete.setVisible(editable);
+    }
+
+    public void refreshFromUI() {
+        // Refresh with values from UI (ContactInfoType never changes)
+        contactInfo.setType(labelKey.getText());
+        contactInfo.setValue(textFieldValue.getText());
     }
 }
