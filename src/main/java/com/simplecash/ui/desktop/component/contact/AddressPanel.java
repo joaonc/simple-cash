@@ -23,6 +23,8 @@ public class AddressPanel extends JPanel {
     private JTextField textFieldCountry;
     private JTextArea textAreaNotes;
 
+    private JButton buttonDelete;
+
     boolean editable;
     Address address;
 
@@ -72,6 +74,10 @@ public class AddressPanel extends JPanel {
         this.address = address;
     }
 
+    public JButton getButtonDelete() {
+        return buttonDelete;
+    }
+
     private void setUI() {
         if (address == null) {
             address = new Address();
@@ -79,6 +85,22 @@ public class AddressPanel extends JPanel {
 
         GridBagConstraints c;
         int gridy = 0;
+
+        c = (GridBagConstraints)textFieldConstraints.clone();
+        c.gridx = 0;
+        c.gridy = gridy;
+        c.gridwidth = gridWidth - 1;
+        c.anchor = GridBagConstraints.LINE_START;
+        labelKey = new JLabel(address.getName());
+        labelKey.setHorizontalAlignment(JLabel.CENTER);
+        add(labelKey, c);
+        
+        c = new GridBagConstraints();
+        c.gridx = gridWidth - 1;
+        c.gridy = gridy++;
+        c.anchor = GridBagConstraints.LINE_END;
+        buttonDelete = new JButton("x");
+        add(buttonDelete, c);
 
         textFieldAddress1 = new JTextField(address.getAddress1());
         c = (GridBagConstraints)textFieldConstraints.clone();

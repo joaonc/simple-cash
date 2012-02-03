@@ -113,4 +113,12 @@ public class Address {
         this.country = country;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Name: %s\nAddress 1: %s\nAddress 2: %s\nPostal Code: %s\nState: %s" +
+                "Region: %s\nCountry: %s\nNotes: %s",
+                name, address1, address2, postalCode, state, region, country, notes);
+    }
 }
