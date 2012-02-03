@@ -21,7 +21,7 @@ public class ContactInfoRepositoryTest extends AbstractTransactionalJUnit4Spring
 
     @BeforeTransaction
     public void setupData() throws Exception {
-        if (countRowsInTable("Contact") == 0) {
+        if (countRowsInTable("ContactInfo") == 0) {
             executeSqlScript("classpath:data.sql", false);
         }
     }

@@ -1,27 +1,27 @@
-/*
- * Script to populate DB with test data.
- * Note: Some syntax is mysql specific.
- */
+--
+-- Script to populate DB with test data.
+-- Note: Some syntax is mysql specific.
+--
 
-# Bank
-insert into bank (code, name) values ('BNK1', 'Bank 1 Name');
-insert into bank (code, name) values ('BNK2', 'Bank 2 Name');
+-- Bank
+insert ignore into bank (code, name) values ('BNK1', 'Bank 1 Name');
+insert ignore into bank (code, name) values ('BNK2', 'Bank 2 Name');
 
-# Contact Info Type
-# Check enum ContactInfoType.Type for values.
+-- Contact Info Type
+-- Check enum ContactInfoType.Type for values.
 insert ignore into contactinfotype (id, id_type, name, description) values
     (1, 1, 'Email', 'Email description here'),
     (2, 2, 'Telephone', 'Telephone description here'),
     (3, 3, 'Url', 'Url description here'),
     (4, 4, 'Note', 'Note description here');
 
-# Contact
-# Spans the tables contact, contactinfo, contact_contactinfo, address, contact_address
-# Requires table contactinfotype to be populated
+-- Contact
+-- Spans the tables contact, contactinfo, contact_contactinfo, address, contact_address
+-- Requires table contactinfotype to be populated
 insert into contact (name) values ('Jonathan Donahue');
 set @id_contact = last_insert_id();
 
-# Contact Info
+-- Contact Info
 insert into contactinfo (id_contactInfoType, type, value) values
 	(1, 'Work', 'jon.doe@jondoeresearch.com');
 insert into contact_contactinfo (id_contact, id_contactInfo) values
@@ -47,7 +47,7 @@ insert into contactinfo (id_contactInfoType, type, value) values
 insert into contact_contactinfo (id_contact, id_contactInfo) values
     (@id_contact, last_insert_id());
 
-# Address
+-- Address
 insert into address (name, address1, address2, country, county, postalCode, region, state, notes) values
 	('name test', '123 Main St', null, null, null, '98318', null, 'VA', 'Used to live here.');
 insert into contact_address (id_contact, id_address ) values

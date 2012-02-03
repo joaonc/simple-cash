@@ -27,7 +27,7 @@ public class AddressesPanel extends JPanel {
 
     /**
      * Constraints to use when adding a AddressPanel.
-     * gridy needs to be changed.
+     * <br><code>gridy</code> needs to be changed.
      */
     private final GridBagConstraints addressPanelGridBagConstraints = new GridBagConstraints(
             0, 0, 1, 1, 0.5, 0,
@@ -108,7 +108,7 @@ public class AddressesPanel extends JPanel {
         JButton buttonAdd = new JButton("+ " + generalResourceBundle.getString("Address"));
         c = new GridBagConstraints();
         c.gridx = 0;
-        c.gridy = gridy++;
+        c.gridy = gridy;
         c.insets = new Insets(4, 0, 2, 2);
         c.anchor = GridBagConstraints.LINE_END;
         add(buttonAdd, c);

@@ -1,6 +1,9 @@
 package com.simplecash.ui.desktop.main;
 
+import com.jjcommon.JJStringUtils;
+import com.simplecash.dal.DatabaseManagerDAO;
 import com.simplecash.dal.RepositoryFactory;
+import com.simplecash.exception.DbSchemaException;
 import com.simplecash.ui.desktop.LookAndFeelOption;
 import org.slf4j.*;
 
@@ -45,13 +48,22 @@ public class Main {
                     logger.error("LookAndFeel not found: " + lookAndFeelName);
                 }
             }
+            
+            String skipDbInit = properties.getProperty("SkipDbInit");
+            if (!JJStringUtils.isTrue(skipDbInit)) {
+                // Instanciate RepositoryFactory, which causes most beans to be instantiated as well
+                // Not necessary to do it here, but it will be fail fast if doesn't instanciate properly
+                new RepositoryFactory();
+
+                try {
+                    DatabaseManagerDAO.populateWithRequiredData();
+                } catch (DbSchemaException e) {
+                    logger.error("Error populating DB with required data.", e);
+                }
+            }
         } catch (IOException e) {
             logger.error(String.format("Properties file not found: %s, going with defaults.", propertiesFile));
         }
-
-        // Instanciate RepositoryFactory, which causes most beans to be instantiated as well
-        // Not necessary to do it here, but it will be fail fast if doesn't instanciate properly
-//        new RepositoryFactory();
 
         // Start the main window
         SimpleCashDialog dialog = new SimpleCashDialog();
