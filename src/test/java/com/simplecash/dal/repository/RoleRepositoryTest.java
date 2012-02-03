@@ -10,10 +10,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for BankRepository.
+ * Unit tests for RoleRepository.
+ * These tests change the database and should never be run against production.
  */
 @ContextConfiguration("classpath:application-context-test.xml")
-public class RoleTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class RoleRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
     RoleRepository roleRepository;

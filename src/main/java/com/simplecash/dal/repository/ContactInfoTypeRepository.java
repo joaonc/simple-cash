@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  */
 public interface ContactInfoTypeRepository extends JpaRepository<ContactInfoType, Long> {
+
+    public ContactInfoType getByIdType(int idType);
 }

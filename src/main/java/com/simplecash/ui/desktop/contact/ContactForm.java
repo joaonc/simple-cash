@@ -1,5 +1,7 @@
 package com.simplecash.ui.desktop.contact;
 
+import com.simplecash.dal.RepositoryFactory;
+import com.simplecash.dal.repository.ContactRepository;
 import com.simplecash.object.Contact;
 import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
 import org.slf4j.Logger;
@@ -44,6 +46,7 @@ public class ContactForm {
     }
 
     public Contact getContact() {
+        refreshFromUI();
         return contact;
     }
 
@@ -53,8 +56,6 @@ public class ContactForm {
     }
 
     protected void setUI() {
-        ((ContactInfosPanel)contactInfosPanel).setContactInfos(contact.getContactInfos());
-        ((AddressesPanel)addressesPanel).setAddresses(contact.getAddresses());
 
         // Event Listeners
         buttonOk.addActionListener(new ActionListener() {
@@ -73,7 +74,8 @@ public class ContactForm {
         // UI initialization
         textAreaTitle.setOpaque(false);
         textAreaTitle.setText("NOVO");
-
+        ((ContactInfosPanel)contactInfosPanel).setContactInfos(contact.getContactInfos());
+        ((AddressesPanel)addressesPanel).setAddresses(contact.getAddresses());
         // ContactInfosPanel properties
 //        contactInfosPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
     }
@@ -87,8 +89,19 @@ public class ContactForm {
         addressesPanel = new AddressesPanel(false);
     }
 
-    public void actionPerformed_buttonOk_Click(ActionEvent e) {
+    public void refreshFromUI() {
+        ((ContactInfosPanel)contactInfosPanel).refreshFromUI();
+        ((AddressesPanel)addressesPanel).refreshFromUI();
+    }
 
+    public void actionPerformed_buttonOk_Click(ActionEvent e) {
+        RepositoryFactory.getEntityManager().getTransaction().begin();
+        ContactRepository contactRepository = RepositoryFactory.getRepository(ContactRepository.class);
+
+        Contact c = getContact();
+        contactRepository.save(c);
+
+        RepositoryFactory.getEntityManager().getTransaction().commit();
     }
 
     public void actionPerformed_buttonCancel_Click(ActionEvent e) {

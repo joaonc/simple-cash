@@ -14,9 +14,11 @@ public class ContactInfo {
     private String type;
     private String value;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_contactInfoType")
-    private ContactInfoType contactInfoType;
+    /**
+     * ContactInfoType.Type.id
+     * Note that this is not an ID in the database, but rather the value set in the enum definition.
+     */
+    private int id_contactInfoType;
 
     public long getId() {
         return id;
@@ -38,11 +40,11 @@ public class ContactInfo {
     }
 
     public ContactInfoType.Type getContactInfoType() {
-        return contactInfoType.getType();
+        return ContactInfoType.Type.getById(id_contactInfoType);
     }
 
     public ContactInfo setContactInfoType(ContactInfoType.Type contactInfoType) {
-        this.contactInfoType = new ContactInfoType(contactInfoType);
+        id_contactInfoType = contactInfoType.getId();
         return this;
     }
 
@@ -58,6 +60,6 @@ public class ContactInfo {
     @Override
     public String toString() {
         return String.format("Type: %s, TypeDescription: %s, Value: %s",
-                contactInfoType.getType().toString(), type, value);
+                getContactInfoType().toString(), type, value);
     }
 }

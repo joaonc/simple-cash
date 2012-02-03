@@ -39,7 +39,7 @@ public class ContactInfoType {
             return description;
         }
 
-        public static Type parse(int id) {
+        public static Type getById(int id) {
             Type type = null;  // Default
             for (Type item : Type.values()) {
                 if (item.getId() == id) {
@@ -56,10 +56,15 @@ public class ContactInfoType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(unique = true)
-    private int id_type;
+    /**
+     * The id defined in the enum, ie, <code>ContactInfoType.Type.getId()</code>.
+     */
+    @Basic(optional = false)
+    @Column(unique = true, nullable = false)
+    private int idType;
 
-    @Column(unique = true)
+    @Basic(optional = false)
+    @Column(unique = true, nullable = false)
     private String name;  // So it can be visible in the database
 
     private String description;  // So it can be visible in the database
@@ -72,11 +77,11 @@ public class ContactInfoType {
     }
 
     public Type getType() {
-        return Type.parse(id_type);
+        return Type.getById(idType);
     }
 
     public void setType(Type type) {
-        id_type = type.getId();
+        idType = type.getId();
         name = type.toString();
         description = type.getDescription();
     }
