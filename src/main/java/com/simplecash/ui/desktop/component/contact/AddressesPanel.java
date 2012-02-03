@@ -1,4 +1,4 @@
-package com.simplecash.ui.desktop.contact;
+package com.simplecash.ui.desktop.component.contact;
 
 import com.jjcommon.ui.desktop.ComponentUtils;
 import com.simplecash.object.Address;

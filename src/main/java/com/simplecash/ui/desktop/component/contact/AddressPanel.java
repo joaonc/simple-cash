@@ -1,4 +1,4 @@
-package com.simplecash.ui.desktop.contact;
+package com.simplecash.ui.desktop.component.contact;
 
 import com.simplecash.object.Address;
 import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
