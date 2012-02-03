@@ -1,4 +1,4 @@
-package com.simplecash.ui.desktop;
+package com.simplecash.ui.desktop.component;
 
 import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
 

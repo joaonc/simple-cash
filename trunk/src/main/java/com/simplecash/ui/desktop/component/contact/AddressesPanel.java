@@ -24,6 +24,7 @@ public class AddressesPanel extends JPanel {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ResourceBundle generalResourceBundle = ResourceBundleFactory.getGeneralBundle();
+    private final ResourceBundle messagesResourceBundle = ResourceBundleFactory.getMessagesBundle();
 
     /**
      * Constraints to use when adding a AddressPanel.
@@ -102,6 +103,13 @@ public class AddressesPanel extends JPanel {
             c = (GridBagConstraints)addressPanelGridBagConstraints.clone();
             c.gridy = gridy++;
             add(addressPanel, c);
+
+            addressPanel.getButtonDelete().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    actionPerformed_buttonAddressDelete_Click(e);
+                }
+            });
         }
 
         // Add button
@@ -120,6 +128,8 @@ public class AddressesPanel extends JPanel {
                 actionPerformed_buttonContactInfoAdd_Click(e);
             }
         });
+
+        validate();
     }
 
     public void refreshFromUI() {
@@ -135,5 +145,23 @@ public class AddressesPanel extends JPanel {
         logger.debug("Add button clicked: " + e.getActionCommand());
 
         JButton button = (JButton)e.getSource();
+    }
+
+    public void actionPerformed_buttonAddressDelete_Click(ActionEvent e) {
+        JButton button = (JButton)e.getSource();
+        AddressPanel addressPanel = (AddressPanel)button.getParent();
+        Address address = addressPanel.getAddress();
+
+        String message = String.format(messagesResourceBundle.getString("DeleteAddressConfirmation"), address.getName());
+        if (JOptionPane.showConfirmDialog(
+                null, message, generalResourceBundle.getString("Confirmation"), JOptionPane.YES_NO_OPTION) ==
+                JOptionPane.YES_OPTION) {
+            logger.debug("Deleting address: " + address.toString());
+
+            addresses.remove(address);
+            remove(addressPanel);
+            clearUI();
+            setUI();
+        }
     }
 }
