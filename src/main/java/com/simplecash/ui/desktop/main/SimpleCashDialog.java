@@ -2,6 +2,7 @@ package com.simplecash.ui.desktop.main;
 
 import com.simplecash.dal.DatabaseManagerDAO;
 
+import com.simplecash.exception.DbSchemaException;
 import com.simplecash.object.Address;
 import com.simplecash.object.Contact;
 import com.simplecash.object.ContactInfo;
@@ -132,7 +133,11 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
         } else if (SimpleCashDialogAction.menu_admin_updatedb.equals(event.getActionCommand())) {
             DatabaseManagerDAO.updateDatabaseSchema();
         } else if (SimpleCashDialogAction.menu_admin_populatedb.equals(event.getActionCommand())) {
-            DatabaseManagerDAO.populateWithTestData();
+            try {
+                DatabaseManagerDAO.populateWithTestData();
+            } catch (DbSchemaException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
         }
     }
 

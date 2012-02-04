@@ -111,7 +111,7 @@ public class ContactForm {
         }
 
         JOptionPane.showConfirmDialog(this.mainPanel,
-                messageResourceBundle.getString("ContactSavedOk"), "" , JOptionPane.OK_OPTION);
+                messageResourceBundle.getString("ContactSavedOk"), "" , JOptionPane.PLAIN_MESSAGE);
     }
 
     public void actionPerformed_buttonCancel_Click(ActionEvent e) {

@@ -20,6 +20,15 @@ public class ContactInfo {
      */
     private int id_contactInfoType;
 
+    public ContactInfo() {
+    }
+
+    public ContactInfo(ContactInfoType.Type contactInfoType, String type, String value) {
+        this.type = type;
+        this.value = value;
+        this.id_contactInfoType = contactInfoType.getId();
+    }
+
     public long getId() {
         return id;
     }
