@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class DatabaseManagerDAO {
 
     /**
      * Populates the database with required data, especially static tables.
+     * @throws DbSchemaException
      */
     public static void populateWithRequiredData() throws DbSchemaException {
 
@@ -91,30 +93,37 @@ public class DatabaseManagerDAO {
     }
 
     @Transactional
-    public static void populateWithTestData() {
+    public static void populateWithTestData() throws DbSchemaException {
+
+        populateWithRequiredData();
 
         RepositoryFactory.getEntityManager().getTransaction().begin();
 
-        ContactInfoTypeRepository contactInfoTypeRepository =
-                RepositoryFactory.getRepository(ContactInfoTypeRepository.class);
-        for (ContactInfoType.Type type : ContactInfoType.Type.values()) {
-            ContactInfoType contactInfoType = new ContactInfoType(type);
-            contactInfoTypeRepository.save(contactInfoType);
-        }
-        
-        Bank bank = new Bank();
-        bank.setName("Itau");
-        bank.setCode("341");
-
         BankRepository bankRepository = RepositoryFactory.getRepository(BankRepository.class);
-        bank = bankRepository.save(bank);
+        BankAccountRepository bankAccountRepository = RepositoryFactory.getRepository(BankAccountRepository.class);
+        ContactRepository contactRepository = RepositoryFactory.getRepository(ContactRepository.class);
 
+        // Banks
+        List<Bank> banks = Arrays.asList(
+                new Bank("Itau", "341"),
+                new Bank("Bradesco", "256"));
+        banks = bankRepository.save(banks);
+
+        // Contact
+        Contact contact = new Contact();
+        contact.setName("Jonathan Doe Jr");
+        contact.addAddress(new Address("House", "123 Main st", null, "1234", null, null, null, null, null));
+        contact.addContactInfo(new ContactInfo(ContactInfoType.Type.Email, "Home", "home_email@email.com"));
+        contact.addContactInfo(new ContactInfo(ContactInfoType.Type.Email, "Work", "work_email@email.com"));
+        contact.addContactInfo(new ContactInfo(ContactInfoType.Type.Telephone, "Personal Cel", "555 123 4321"));
+        contact.addContactInfo(new ContactInfo(ContactInfoType.Type.Note, "Important", "Something important to say."));
+        contact = contactRepository.save(contact);
+
+        // Bank Account
         BankAccount bankAccount = new BankAccount();
         bankAccount.setName("Conta no Itaú");
         bankAccount.setNumber("1234-01");
-        bankAccount.setBank(bank);
-
-        BankAccountRepository bankAccountRepository = RepositoryFactory.getRepository(BankAccountRepository.class);
+        bankAccount.setBank(banks.get(0));
         bankAccount = bankAccountRepository.save(bankAccount);
 
         RepositoryFactory.getEntityManager().getTransaction().commit();

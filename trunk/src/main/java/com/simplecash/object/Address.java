@@ -29,6 +29,23 @@ public class Address {
     private String region;
     private String country;
 
+    public Address() {
+    }
+
+    public Address(
+            String name, String address1, String address2, String postalCode,
+            String county, String state, String region, String country, String notes) {
+        this.name = name;
+        this.notes = notes;
+        this.address1 = address1;
+        this.address2 = address2;
+        this.postalCode = postalCode;
+        this.county = county;
+        this.state = state;
+        this.region = region;
+        this.country = country;
+    }
+
     public long getId() {
         return id;
     }

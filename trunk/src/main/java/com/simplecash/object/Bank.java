@@ -13,12 +13,20 @@ public class Bank {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-//    @NotNull
-    @Column(unique = true)
+    @Basic(optional = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Column(unique = true)
     private String code;
+
+    public Bank() {
+    }
+
+    public Bank(String name, String code) {
+        this.name = name;
+        this.code = code;
+    }
 
     public long getId() {
         return id;

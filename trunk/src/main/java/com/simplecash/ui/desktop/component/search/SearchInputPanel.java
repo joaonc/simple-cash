@@ -59,7 +59,7 @@ public class SearchInputPanel extends JPanel {
         c = new GridBagConstraints();
         c.gridx = 2;
         c.gridy = 0;
-        add(buttonSearch, c);
+        add(buttonClear, c);
 
         buttonClear.addActionListener(new ActionListener() {
             @Override
@@ -76,6 +76,6 @@ public class SearchInputPanel extends JPanel {
     }
 
     public void actionPerformed_buttonSearch_Click(ActionEvent e) {
-        logger.debug("Search search button clicked.");
+        logger.debug("Search button clicked.");
     }
 }
