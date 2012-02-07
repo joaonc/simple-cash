@@ -44,8 +44,9 @@ public class ContactRepositoryTest extends AbstractTransactionalJUnit4SpringCont
         contact = contactRepository.save(contact);
         assertTrue(contact.getId() > 0);
 
-        Contact contact2 = contactRepository.findByName(name);
-        assertNotNull(contact2);
+        List<Contact> contacts = contactRepository.findByName(name);
+        assertNotNull(contacts);
+        assertTrue(contacts.size() > 0);
     }
 
     @Test
