@@ -60,7 +60,7 @@ public class ContactInfoType {
      * The id defined in the enum, ie, <code>ContactInfoType.Type.getId()</code>.
      */
     @Basic(optional = false)
-    @Column(unique = true, nullable = false)
+    @Column(name = "id_type", unique = true, nullable = false)
     private int idType;
 
     @Basic(optional = false)

@@ -1,6 +1,9 @@
 package com.simplecash.ui.desktop.component.search;
 
+import com.simplecash.ui.desktop.event.SearchEvent;
 import com.simplecash.ui.desktop.resourcebundle.ResourceBundleFactory;
+import javaEventing.EventManager;
+import javaEventing.interfaces.GenericEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +17,7 @@ import java.util.ResourceBundle;
  * Panel that has the search input text field and Search/Clear buttons.
  */
 public class SearchInputPanel extends JPanel {
-    
+
     private JTextField textFieldSearch;
     private JButton buttonSearch;
     private JButton buttonClear;
@@ -47,12 +50,12 @@ public class SearchInputPanel extends JPanel {
         c.gridy = 0;
         add(buttonSearch, c);
 
-        buttonSearch.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                actionPerformed_buttonSearch_Click(e);
-            }
-        });
+//        buttonSearch.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                actionPerformed_buttonSearch_Click(e);
+//            }
+//        });
 
         // Clear button
         buttonClear = new JButton(generalResourceBundle.getString("Clear"));
@@ -67,6 +70,22 @@ public class SearchInputPanel extends JPanel {
                 actionPerformed_buttonClear_Click(e);
             }
         });
+    }
+
+    public JTextField getTextFieldSearch() {
+        return textFieldSearch;
+    }
+
+    public JButton getButtonSearch() {
+        return buttonSearch;
+    }
+
+    public JButton getButtonClear() {
+        return buttonClear;
+    }
+
+    public String getSearchString() {
+        return textFieldSearch.getText();
     }
 
     public void actionPerformed_buttonClear_Click(ActionEvent e) {

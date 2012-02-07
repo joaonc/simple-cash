@@ -10,6 +10,8 @@ import com.simplecash.object.ContactInfoType;
 import com.simplecash.ui.desktop.component.LeftPanel;
 import com.simplecash.ui.desktop.component.contact.ContactForm;
 import com.simplecash.ui.desktop.component.search.SearchPanel;
+import com.simplecash.ui.desktop.event.ContactSearchEvent;
+import com.simplecash.ui.desktop.event.ContactSearchEventListener;
 import com.simplecash.ui.desktop.event.LookAndFeelChangeEvent;
 import com.simplecash.ui.desktop.LookAndFeelOption;
 import com.simplecash.ui.desktop.options.AboutForm;
@@ -188,7 +190,9 @@ public class SimpleCashDialog extends JDialog implements ActionListener, TreeSel
 
                     splitPane.setRightComponent(new ContactForm(contact).getMainPanel());
                 } else if (path2.equals(generalResourceBundle.getString("List_verb"))) {
-                    splitPane.setRightComponent(new SearchPanel());
+                    SearchPanel searchPanel = new SearchPanel();
+                    searchPanel.registerSearchEventListener(new ContactSearchEventListener(), ContactSearchEvent.class);
+                    splitPane.setRightComponent(searchPanel);
                 }
             }
         } else if (path1.equals(generalResourceBundle.getString("Options"))) {
